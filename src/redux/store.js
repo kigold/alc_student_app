@@ -1,9 +1,9 @@
 import { compose, createStore, applyMiddleware } from 'redux';
 //import { browserHistory } from 'react-router';
 import { createBrowserHistory } from 'history';
-import { BrowserRouter } from 'react-router-dom';
+//import { BrowserRouter } from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
-import logger from 'redux-logger';
+//import logger from 'redux-logger';
 import { createLogger } from 'redux-logger';
 import rootReducer from './reducers';
 
@@ -28,7 +28,7 @@ const enhancers = compose(
  );
 
  //export const history = syncHistoryWithStore(browserHistory, store);
- export const history = syncHistoryWithStore(createBrowserHistory(), store);
+ export const { history }  = syncHistoryWithStore(createBrowserHistory(), store);
 
  
  export { store };

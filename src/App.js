@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { NavBar } from './modules';
 import logo from './logo.svg';
 import './App.css';
+import 'semantic-ui-css/semantic.min.css';
 
 const styles = {
   root: {
@@ -8,15 +10,15 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
+    flexDirection: 'column',
 
   }
 }
 
-const App = () => (
-  <div style={styles.root}>
-    <h1> Hello</h1>
-    <img src={logo} className="App-logo" alt="logo" />
-  </div>
+const App = ({location}) => (
+    
+      <NavBar path={location.pathname}/>
+    
 )
 
 export default App;

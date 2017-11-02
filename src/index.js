@@ -2,14 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { render } from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import Routes from './Routes';
+//import registerServiceWorker from './registerServiceWorker';
 
 render(
     <Provider store={store}>
-        <App />
+        <Routes  />        
     </Provider>,
     document.getElementById('root')
 );
 
-registerServiceWorker();
+//registerServiceWorker();
