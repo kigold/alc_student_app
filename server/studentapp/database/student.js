@@ -1,6 +1,10 @@
 const db = require('../database');
+const bcrypt = require('bcrypt');
+
+const salt = bcrypt.genSaltSync(10);
 
 const Table = 'student';
+
 function getAllStudents(req, res, next) {
     db.any('select * from '+Table)
       .then(function (data) {
@@ -35,10 +39,10 @@ function getAllStudents(req, res, next) {
   }
 
   function createStudent(req, res, next) {
-  //req.body.age = parseInt(req.body.age);
   req.body.status = "active";
-  db.none('insert into '+Table+'(name, gender, dob, occupation, status)' +
-      'values(${name}, ${gender}, ${dob}, ${occupation}, ${status})',
+  req.body.password = bcrypt.hashSync(req.body.password, salt)
+  db.none('insert into '+Table+'(name, gender, dob, occupation, password, status)' +
+      'values(${name}, ${gender}, ${dob}, ${occupation}, ${password}, ${status})',
     req.body)
     .then(function () {
       res.status(200)
@@ -53,9 +57,11 @@ function getAllStudents(req, res, next) {
 }
 
 function updateStudent(req, res, next) {
+    req.body.password = bcrypt.hashSync(req.body.password, salt);
+    req.body.status = "active";
     var parameters = [req.body.name, req.body.gender, req.body.dob,
-        req.body.occupation, req.body.status,  parseInt(req.params.id)]
-    db.none('update '+Table+' set name=$1, gender=$2, dob=$3, occupation=$4, status=$5 where id=$6',
+        req.body.occupation, req.body.password, req.body.status,  parseInt(req.params.id)]
+    db.none('update '+Table+' set name=$1, gender=$2, dob=$3, occupation=$4,password=$5, status=$6 where id=$7',
       parameters)
       .then(function () {
         res.status(200)

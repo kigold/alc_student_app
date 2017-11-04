@@ -7,18 +7,18 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/api/students', db.getAllStudents);
-router.get('/api/student/:id', db.getSingleStudent);
-router.post('/api/createStudent', db.createStudent);
-router.post('/api/updateStudent/:id', db.updateStudent);
-router.delete('/api/student/:id', db.removeStudent);
+router.get('/students', db.getAllStudents);
+router.get('/student/:id', db.getSingleStudent);
+router.post('/createStudent', db.createStudent);
+router.post('/updateStudent/:id', db.updateStudent);
+router.delete('/student/:id', db.removeStudent);
 
 
-router.get('/api/resource', db.getAllResource);
-router.get('/api/resource/:id', db.getSingleResource);
-router.post('/api/createResource', db.createResource);
-router.post('/api/updateResource/:id', db.updateResource);
-router.delete('/api/resource/:id', db.removeResource);
+router.get('/resource', db.getAllResource);
+router.get('/resource/:id', db.getSingleResource);
+router.post('/createResource', db.createResource);
+router.post('/updateResource/:id', db.updateResource);
+router.delete('/resource/:id', db.removeResource);
 
 
 

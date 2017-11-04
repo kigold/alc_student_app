@@ -5,6 +5,7 @@ CREATE DATABASE students;
 
 CREATE TABLE student (
   ID SERIAL PRIMARY KEY,
+  password VARCHAR,
   name VARCHAR,
   gender VARCHAR,
   occupation VARCHAR,
@@ -13,4 +14,4 @@ CREATE TABLE student (
 );
 
 INSERT INTO student (name, gender, occupation, status, dob)
-  VALUES ('Kingsley', 'M', 'developer', 'active', '01/25/1900');
+  VALUES ('Kingsley', 'M', 'developer', 'password', 'active', '01/25/1900');
