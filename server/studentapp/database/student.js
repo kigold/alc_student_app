@@ -41,8 +41,8 @@ function getAllStudents(req, res, next) {
   function createStudent(req, res, next) {
   req.body.status = "active";
   req.body.password = bcrypt.hashSync(req.body.password, salt)
-  db.none('insert into '+Table+'(name, gender, dob, occupation, password, status)' +
-      'values(${name}, ${gender}, ${dob}, ${occupation}, ${password}, ${status})',
+  db.none('insert into '+Table+'(email, name, gender, dob, occupation, password, status)' +
+      'values(${email}, ${name}, ${gender}, ${dob}, ${occupation}, ${password}, ${status})',
     req.body)
     .then(function () {
       res.status(200)
@@ -59,9 +59,9 @@ function getAllStudents(req, res, next) {
 function updateStudent(req, res, next) {
     req.body.password = bcrypt.hashSync(req.body.password, salt);
     req.body.status = "active";
-    var parameters = [req.body.name, req.body.gender, req.body.dob,
+    var parameters = [req.body.email, req.body.name, req.body.gender, req.body.dob,
         req.body.occupation, req.body.password, req.body.status,  parseInt(req.params.id)]
-    db.none('update '+Table+' set name=$1, gender=$2, dob=$3, occupation=$4,password=$5, status=$6 where id=$7',
+    db.none('update '+Table+' set email=$1, name=$2, gender=$3, dob=$4, occupation=$5, password=$6, status=$7 where id=$8',
       parameters)
       .then(function () {
         res.status(200)

@@ -5,6 +5,7 @@ CREATE DATABASE students;
 
 CREATE TABLE student (
   ID SERIAL PRIMARY KEY,
+  email VARCHAR,
   password VARCHAR,
   name VARCHAR,
   gender VARCHAR,
