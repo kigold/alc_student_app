@@ -2,11 +2,14 @@ const db = require('./database');
 const bcrypt = require('bcrypt');
 const jwt    = require('jsonwebtoken')
 const config = require('./database/config');
+var express = require('express');
+var router = express.Router();
 
 const salt = bcrypt.genSaltSync(10);
 const Table = 'student';
 
 function authUser(req, res, next) {
+    //TODO change query to email
     var id = parseInt(req.params.id)  
     db.any('select * from '+Table+ ' where id = $1', id)
       .then(function (data) {
@@ -53,7 +56,31 @@ function authUser(req, res, next) {
       });
   }
 
+router.use(function authMiddleware(req, res, next) {
+  //check header for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  if (token) {
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.'});
+      }
+      else{
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }
+  else{
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
+    });
+  }
+});
+
+
   module.exports = {
-    authUser:authUser
+    authUser:authUser,
+    authMiddleware:router
 
 }
