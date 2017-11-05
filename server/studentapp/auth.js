@@ -10,8 +10,8 @@ const Table = 'student';
 
 function authUser(req, res, next) {
     //TODO change query to email
-    var id = parseInt(req.params.id)  
-    db.any('select * from '+Table+ ' where id = $1', id)
+    var email = req.body.email;  
+    db.any('select * from '+Table+ ' where email = $1', email)
       .then(function (data) {
           //failed
           if(!data){

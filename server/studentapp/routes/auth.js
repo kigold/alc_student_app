@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'AuthIsh' });
 });
 
-router.post('/login/:id', auth.authUser);
+router.post('/login', auth.authUser);
 
 
 
